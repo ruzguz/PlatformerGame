@@ -29,8 +29,6 @@ public class RunButtonController : MonoBehaviour
             // Move player
             player.Run(_axis * _direction);
         }
-
-        Debug.Log(_axis);
     }
 
 

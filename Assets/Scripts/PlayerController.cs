@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     // General Vars
     [SerializeField]
     float _speed = 10f;
+    [SerializeField]
+    float _jumpForce = 20f;
 
 
     // Is called when the script instance is loaded
@@ -31,10 +33,24 @@ public class PlayerController : MonoBehaviour
 
     }
 
+
+    // Change player velocity in x axi 
     public void Run(float axis) 
     {
         // Change player velocity 
         _playerRB.velocity = new Vector2(axis * _speed, _playerRB.velocity.y);
+    }
+
+    // Add force to make the player jump
+    public void Jump() 
+    {
+        _playerRB.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+    }
+
+    // Check if player is touching the ground
+    bool IsTouchinTheGround() 
+    {
+        return true;
     }
 
 
