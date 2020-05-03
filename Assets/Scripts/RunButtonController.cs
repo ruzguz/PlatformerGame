@@ -7,7 +7,7 @@ public class RunButtonController : MonoBehaviour
 {
 
     // Consts
-    public const float CHANGE_RATE = 0.1f;
+    public const float CHANGE_RATE = 0.2f;
 
     // General vars 
     bool _isPressed = false;
