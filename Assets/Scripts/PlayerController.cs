@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour
 
     // General Vars
     [SerializeField]
-    float _speed = 10f;
+    float _speed = 15f;
     [SerializeField]
-    float _jumpForce = 20f;
+    float _jumpForce = 25f;
 
 
     // Is called when the script instance is loaded
