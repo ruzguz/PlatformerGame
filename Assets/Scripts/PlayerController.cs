@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     float _speed = 15f;
     [SerializeField]
     float _jumpForce = 25f;
+    bool isGrounded = false;
 
 
     // Is called when the script instance is loaded
@@ -54,13 +55,25 @@ public class PlayerController : MonoBehaviour
     // Add force to make the player jump
     public void Jump() 
     {
-        _playerRB.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        if (isGrounded) {
+            _playerRB.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            isGrounded = false;
+        }
     }
 
     // Check if player is touching the ground
     bool IsTouchinTheGround() 
     {
         return true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        Debug.Log(other.gameObject.name);
+        if (other.gameObject.CompareTag("Ground")) 
+        {
+            Debug.Log("Ground Collision");
+            isGrounded = true;
+        }    
     }
 
 
