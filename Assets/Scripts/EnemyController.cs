@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
 
 // Component vars
 Rigidbody2D _enemyRB;
+Animator _enemyAnim;
 
 // General vars
 float _timeBeforeChange;
@@ -19,6 +20,7 @@ float speed = 5;
     void Awake() 
     {
         _enemyRB = GetComponent<Rigidbody2D>();
+        _enemyAnim = GetComponent<Animator>();
     }
     
     // Start is called before the first frame update
@@ -34,6 +36,7 @@ float speed = 5;
         if (_timeBeforeChange < Time.time) 
         {
             speed *= -1;
+            transform.localScale = new Vector3(transform.localScale.x * -1, 1, 1);
             _timeBeforeChange = Time.time + _dealy;
         }
     }
