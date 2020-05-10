@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
     // Components vars
     Rigidbody2D _playerRB;
+    public Animator _playerAnim;
 
     // General Vars
     [SerializeField]
@@ -14,12 +15,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float _jumpForce = 25f;
     bool isGrounded = false;
+    int scale = 1;
 
 
     // Is called when the script instance is loaded
     void Awake() 
     {
         _playerRB = GetComponent<Rigidbody2D>();
+        _playerAnim = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -48,7 +51,16 @@ public class PlayerController : MonoBehaviour
     // Change player velocity in x axi 
     public void Run(float axis) 
     {
-        // Change player velocity 
+        // Flip player
+        if (axis < 0) 
+        {
+            scale = -1;
+        } else if (axis > 0) {
+            scale = 1;
+        }
+        transform.localScale = new Vector3(scale, 1, 1);
+
+        // Change player velocity    
         _playerRB.velocity = new Vector2(axis * _speed, _playerRB.velocity.y);
     }
 
@@ -56,22 +68,15 @@ public class PlayerController : MonoBehaviour
     public void Jump() 
     {
         if (isGrounded) {
+            _playerAnim.SetTrigger("jump");
             _playerRB.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
         }
     }
 
-    // Check if player is touching the ground
-    bool IsTouchinTheGround() 
-    {
-        return true;
-    }
-
     private void OnCollisionEnter2D(Collision2D other) {
-        Debug.Log(other.gameObject.name);
         if (other.gameObject.CompareTag("Ground")) 
         {
-            Debug.Log("Ground Collision");
             isGrounded = true;
         }    
     }

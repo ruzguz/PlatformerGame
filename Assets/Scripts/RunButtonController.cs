@@ -49,6 +49,7 @@ public class RunButtonController : MonoBehaviour
         // set buttton as pressed and disable the other arrow 
         _isPressed = true;
         otherButton.interactable = false;
+        player._playerAnim.SetBool("isRunning", true);
     }
 
     // Action when the player stop pressing the run button 
@@ -61,6 +62,7 @@ public class RunButtonController : MonoBehaviour
         _axis = 0; 
         player.Run(0);
         otherButton.interactable = true;
+        player._playerAnim.SetBool("isRunning", false);
     }
 
 
