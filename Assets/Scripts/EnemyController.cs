@@ -12,7 +12,7 @@ Animator _enemyAnim;
 // General vars
 float _timeBeforeChange;
 [SerializeField]
-float _dealy = 2;
+float _dealy = 1;
 [SerializeField]
 float speed = 5;
 
@@ -39,5 +39,17 @@ float speed = 5;
             transform.localScale = new Vector3(transform.localScale.x * -1, 1, 1);
             _timeBeforeChange = Time.time + _dealy;
         }
+    }
+
+    public void DisableEnemy() 
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+
+        if (other.gameObject.CompareTag("Player") && other.transform.position.y - 1f > transform.position.y) {
+            _enemyAnim.SetBool("isAlive", false);
+        } 
     }
 }
