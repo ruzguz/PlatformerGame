@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     float _jumpForce = 25f;
     bool isGrounded = false;
     int scale = 1;
+    [SerializeField]
+    float maxFallVelocity = -20f;
+    float clamppedYSpeed = 0;
 
 
     // Is called when the script instance is loaded
@@ -38,6 +41,12 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxis("Horizontal") != 0) {
                 Run(Input.GetAxis("Horizontal"));
             }
+
+            // Check player velocity for the run animation
+            if (_playerRB.velocity.x == 0)  
+            {
+                _playerAnim.SetBool("isRunning", false);
+            }
             
 
             // Jump with keyboard  (test in PC)
@@ -45,6 +54,16 @@ public class PlayerController : MonoBehaviour
             {
                 Jump();
             }
+    }
+
+
+    void FixedUpdate() 
+    {
+        // Clamp fall speed
+        clamppedYSpeed = Mathf.Max(_playerRB.velocity.y, maxFallVelocity);
+        _playerRB.velocity = new Vector3(_playerRB.velocity.x, clamppedYSpeed);
+        Debug.Log("Fall velocity: "+_playerRB.velocity.y+" Clamp: "+clamppedYSpeed);
+
     }
 
 
@@ -57,7 +76,11 @@ public class PlayerController : MonoBehaviour
             scale = -1;
         } else if (axis > 0) {
             scale = 1;
-        }
+        } 
+
+        // Set animation
+        _playerAnim.SetBool("isRunning", axis == 0?false:true);
+
         transform.localScale = new Vector3(scale, 1, 1);
 
         // Change player velocity    
