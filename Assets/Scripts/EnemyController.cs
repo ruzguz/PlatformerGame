@@ -57,11 +57,25 @@ public class EnemyController : MonoBehaviour
         enemyParticle.Play();
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
+    void OnCollisionEnter2D(Collision2D other)
+    {
         // Player kill enemy
-        if (other.gameObject.CompareTag("Player")) {
+        if (other.gameObject.CompareTag("Player") && other.transform.position.y >= transform.position.y + 1f) {
             _enemyAnim.SetBool("isAlive", false);
             _enemyAudio.Play();
+            return;
         } 
+        // Enemy attack player
+        if (other.gameObject.CompareTag("Player")) 
+        {
+            other.gameObject.GetComponent<PlayerController>().Kill();
+            Transform parent = transform.parent;
+            GetComponentInParent<AudioSource>().Play();
+            // Revive all enemies
+            for (int i =  0; i < parent.childCount; i++) 
+            {
+                parent.GetChild(i).gameObject.SetActive(true);
+            }
+        }
     }
 }
