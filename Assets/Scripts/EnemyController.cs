@@ -53,9 +53,9 @@ public class EnemyController : MonoBehaviour
         enemyParticle.Play();
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
+    private void OnTriggerEnter2D(Collider2D other) {
         // Player kill enemy
-        if (other.gameObject.CompareTag("Player") && other.transform.position.y - 1f > transform.position.y) {
+        if (other.gameObject.CompareTag("Player")) {
             _enemyAnim.SetBool("isAlive", false);
         } 
     }
