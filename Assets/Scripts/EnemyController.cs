@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     // Component vars
     Rigidbody2D _enemyRB;
     Animator _enemyAnim;
+    AudioSource _enemyAudio;
 
     // General vars
     float _timeBeforeChange;
@@ -26,6 +27,7 @@ public class EnemyController : MonoBehaviour
     {
         _enemyRB = GetComponent<Rigidbody2D>();
         _enemyAnim = GetComponent<Animator>();
+        _enemyAudio = GetComponent<AudioSource>();
     }
     
     // Start is called before the first frame update
@@ -57,6 +59,7 @@ public class EnemyController : MonoBehaviour
         // Player kill enemy
         if (other.gameObject.CompareTag("Player")) {
             _enemyAnim.SetBool("isAlive", false);
+            _enemyAudio.Play();
         } 
     }
 }

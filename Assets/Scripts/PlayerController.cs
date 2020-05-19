@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     // Components vars
     Rigidbody2D _playerRB;
     public Animator _playerAnim;
+    AudioSource _playerAudio;
+
 
     // General Vars
     [SerializeField]
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         _playerRB = GetComponent<Rigidbody2D>();
         _playerAnim = GetComponent<Animator>();
+        _playerAudio = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -89,6 +92,7 @@ public class PlayerController : MonoBehaviour
     public void Jump() 
     {
         if (isGrounded) {
+            _playerAudio.Play();
             _playerAnim.SetTrigger("jump");
             _playerRB.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
