@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float maxFallVelocity = -20f;
     float clamppedYSpeed = 0;
+    Vector3 _startPosition;
 
 
     // Is called when the script instance is loaded
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _startPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -104,6 +105,12 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }    
+    }
+
+    public void Kill()
+    {
+        _playerRB.velocity = Vector3.zero;
+        transform.position = _startPosition;
     }
 
 

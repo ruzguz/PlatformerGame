@@ -51,7 +51,9 @@ public class EnemyController : MonoBehaviour
     public void DisableEnemy() 
     {
         gameObject.SetActive(false);
-        enemyParticle.transform.position = transform.position;
+        enemyParticle.transform.position = new Vector3(transform.position.x, 
+                                                       transform.position.y,
+                                                       enemyParticle.transform.position.z);
         enemyParticle.Play();
     }
 

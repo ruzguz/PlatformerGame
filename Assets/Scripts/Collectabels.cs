@@ -45,7 +45,9 @@ public class Collectabels : MonoBehaviour
             gameObject.SetActive(false);
             gemsQuantity++;
             GameObject.Find("GemsText").GetComponent<Text>().text = "x "+gemsQuantity;
-            diamondParticle.transform.position = transform.position;
+            diamondParticle.transform.position = new Vector3(transform.position.x, 
+                                                             transform.position.y,
+                                                             diamondParticle.transform.position.z);
             diamondParticle.Play();
         }    
     }
