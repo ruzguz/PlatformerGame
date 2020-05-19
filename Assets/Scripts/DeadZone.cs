@@ -17,7 +17,6 @@ public class DeadZone : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) 
     {
-        Debug.Log("Collision");
         if(other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().Kill();
