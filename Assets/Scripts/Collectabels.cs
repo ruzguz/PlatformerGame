@@ -6,16 +6,23 @@ using UnityEngine.UI;
 public class Collectabels : MonoBehaviour
 {
 
-    // Shared vars
+    // Static vars
     public static int gemsQuantity = 0;
-
+    public static ParticleSystem diamondParticle;
     // General vars
     
+
+
+    // Awake is called when the script instance is being loaded.
+    void Awake()
+    {
+        
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        diamondParticle =  GameObject.Find("CollectableParticle").GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -31,6 +38,8 @@ public class Collectabels : MonoBehaviour
             gameObject.SetActive(false);
             gemsQuantity++;
             GameObject.Find("GemsText").GetComponent<Text>().text = "x "+gemsQuantity;
+            diamondParticle.transform.position = transform.position;
+            diamondParticle.Play();
         }    
     }
 }

@@ -62,8 +62,6 @@ public class PlayerController : MonoBehaviour
         // Clamp fall speed
         clamppedYSpeed = Mathf.Max(_playerRB.velocity.y, maxFallVelocity);
         _playerRB.velocity = new Vector3(_playerRB.velocity.x, clamppedYSpeed);
-        Debug.Log("Fall velocity: "+_playerRB.velocity.y+" Clamp: "+clamppedYSpeed);
-
     }
 
 

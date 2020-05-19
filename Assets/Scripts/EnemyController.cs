@@ -5,16 +5,19 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 
-// Component vars
-Rigidbody2D _enemyRB;
-Animator _enemyAnim;
+    // Static vars
+    public static ParticleSystem enemyParticle;
 
-// General vars
-float _timeBeforeChange;
-[SerializeField]
-float _dealy = 1;
-[SerializeField]
-float speed = 5;
+    // Component vars
+    Rigidbody2D _enemyRB;
+    Animator _enemyAnim;
+
+    // General vars
+    float _timeBeforeChange;
+    [SerializeField]
+    float _dealy = 1;
+    [SerializeField]
+    float speed = 5;
 
 
     void Awake() 
@@ -26,7 +29,7 @@ float speed = 5;
     // Start is called before the first frame update
     void Start()
     {
-        
+        enemyParticle = GameObject.Find("EnemyParticle").GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -44,10 +47,12 @@ float speed = 5;
     public void DisableEnemy() 
     {
         gameObject.SetActive(false);
+        enemyParticle.transform.position = transform.position;
+        enemyParticle.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-
+        // Player kill enemy
         if (other.gameObject.CompareTag("Player") && other.transform.position.y - 1f > transform.position.y) {
             _enemyAnim.SetBool("isAlive", false);
         } 
